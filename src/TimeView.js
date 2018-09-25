@@ -77,8 +77,9 @@ var DateTimePickerTime = onClickOutside( createClass({
 
 	render: function() {
 		var me = this,
-			counters = []
-		;
+			counters = [],
+			renderTimeWrapper = this.props.renderTimeWrapper || this.renderTimeWrapper
+			;
 
 		this.state.counters.forEach( function( c ) {
 			if ( counters.length )
@@ -99,7 +100,7 @@ var DateTimePickerTime = onClickOutside( createClass({
 				);
 		}
 
-		return React.createElement('div', { className: 'rdtTime' },
+		return React.createElement(renderTimeWrapper, null,
 			React.createElement('table', {}, [
 				this.renderHeader(),
 				React.createElement('tbody', { key: 'b'}, React.createElement('tr', {}, React.createElement('td', {},
@@ -149,6 +150,10 @@ var DateTimePickerTime = onClickOutside( createClass({
 			this.props.setTime( 'milliseconds', milli );
 			this.setState( { milliseconds: milli } );
 		}
+	},
+
+	renderTimeWrapper: function(props) {
+		return React.createElement('div', { className: 'rdtTime' }, props.children);
 	},
 
 	renderHeader: function() {

@@ -453,7 +453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 
 		componentProps: {
-			fromProps: ['value', 'isValidDate', 'renderDay', 'renderMonth', 'renderYear', 'renderDaysLabel', 'timeConstraints'],
+			fromProps: ['value', 'isValidDate', 'renderDay', 'renderMonth', 'renderYear', 'renderDaysLabel', 'timeConstraints', 'renderTimeWrapper'],
 			fromState: ['viewDate', 'selectedDate', 'updateOn'],
 			fromThis: ['setDate', 'setTime', 'showView', 'addTime', 'subtractTime', 'updateSelectedDate', 'localMoment', 'handleClickOutside']
 		},
@@ -3545,8 +3545,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		render: function() {
 			var me = this,
-				counters = []
-			;
+				counters = [],
+				renderTimeWrapper = this.props.renderTimeWrapper || this.renderTimeWrapper
+				;
 
 			this.state.counters.forEach( function( c ) {
 				if ( counters.length )
@@ -3567,7 +3568,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					);
 			}
 
-			return React.createElement('div', { className: 'rdtTime' },
+			return React.createElement(renderTimeWrapper, null,
 				React.createElement('table', {}, [
 					this.renderHeader(),
 					React.createElement('tbody', { key: 'b'}, React.createElement('tr', {}, React.createElement('td', {},
@@ -3617,6 +3618,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.props.setTime( 'milliseconds', milli );
 				this.setState( { milliseconds: milli } );
 			}
+		},
+
+		renderTimeWrapper: function(props) {
+			return React.createElement('div', { className: 'rdtTime' }, props.children);
 		},
 
 		renderHeader: function() {
