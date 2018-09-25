@@ -12,7 +12,7 @@ MIT: https://github.com/YouCanBookMe/react-datetime/raw/master/LICENSE
 		exports["Datetime"] = factory(require("React"), require("moment"), require("ReactDOM"));
 	else
 		root["Datetime"] = factory(root["React"], root["moment"], root["ReactDOM"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_15__, __WEBPACK_EXTERNAL_MODULE_19__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_20__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -64,9 +64,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var assign = __webpack_require__(1),
 		PropTypes = __webpack_require__(2),
 		createClass = __webpack_require__(11),
-		moment = __webpack_require__(15),
+		moment = __webpack_require__(16),
 		React = __webpack_require__(12),
-		CalendarContainer = __webpack_require__(16)
+		CalendarContainer = __webpack_require__(17)
 		;
 
 	var viewModes = Object.freeze({
@@ -453,7 +453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 
 		componentProps: {
-			fromProps: ['value', 'isValidDate', 'renderDay', 'renderMonth', 'renderYear', 'timeConstraints'],
+			fromProps: ['value', 'isValidDate', 'renderDay', 'renderMonth', 'renderYear', 'renderDaysLabel', 'timeConstraints'],
 			fromState: ['viewDate', 'selectedDate', 'updateOn'],
 			fromThis: ['setDate', 'setTime', 'showView', 'addTime', 'subtractTime', 'updateSelectedDate', 'localMoment', 'handleClickOutside']
 		},
@@ -1720,9 +1720,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _assign = __webpack_require__(1);
+	var _assign = __webpack_require__(14);
 
-	var emptyObject = __webpack_require__(14);
+	var emptyObject = __webpack_require__(15);
 	var _invariant = __webpack_require__(6);
 
 	if (process.env.NODE_ENV !== 'production') {
@@ -2585,6 +2585,102 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 /* 14 */
+/***/ (function(module, exports) {
+
+	/*
+	object-assign
+	(c) Sindre Sorhus
+	@license MIT
+	*/
+
+	'use strict';
+	/* eslint-disable no-unused-vars */
+	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	function shouldUseNative() {
+		try {
+			if (!Object.assign) {
+				return false;
+			}
+
+			// Detect buggy property enumeration order in older V8 versions.
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+			var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+			test1[5] = 'de';
+			if (Object.getOwnPropertyNames(test1)[0] === '5') {
+				return false;
+			}
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test2 = {};
+			for (var i = 0; i < 10; i++) {
+				test2['_' + String.fromCharCode(i)] = i;
+			}
+			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+				return test2[n];
+			});
+			if (order2.join('') !== '0123456789') {
+				return false;
+			}
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test3 = {};
+			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+				test3[letter] = letter;
+			});
+			if (Object.keys(Object.assign({}, test3)).join('') !==
+					'abcdefghijklmnopqrst') {
+				return false;
+			}
+
+			return true;
+		} catch (err) {
+			// We don't expect any of the above to throw, but better to be safe.
+			return false;
+		}
+	}
+
+	module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+		var from;
+		var to = toObject(target);
+		var symbols;
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = Object(arguments[s]);
+
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+
+			if (getOwnPropertySymbols) {
+				symbols = getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
+			}
+		}
+
+		return to;
+	};
+
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2609,23 +2705,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_15__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_16__;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(12),
 		createClass = __webpack_require__(11),
-		DaysView = __webpack_require__(17),
-		MonthsView = __webpack_require__(21),
-		YearsView = __webpack_require__(22),
-		TimeView = __webpack_require__(23)
+		DaysView = __webpack_require__(18),
+		MonthsView = __webpack_require__(22),
+		YearsView = __webpack_require__(23),
+		TimeView = __webpack_require__(24)
 		;
 
 	var CalendarContainer = createClass({
@@ -2645,15 +2741,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(12),
 		createClass = __webpack_require__(11),
-		moment = __webpack_require__(15),
-		onClickOutside = __webpack_require__(18).default
+		moment = __webpack_require__(16),
+		onClickOutside = __webpack_require__(19).default
 		;
 
 	var DateTimePickerDays = onClickOutside( createClass({
@@ -2661,14 +2757,15 @@ return /******/ (function(modules) { // webpackBootstrap
 			var footer = this.renderFooter(),
 				date = this.props.viewDate,
 				locale = date.localeData(),
-				tableChildren
+				tableChildren,
+				renderDaysLabel = this.props.renderDaysLabel || this.renderDaysLabel
 				;
 
 			tableChildren = [
 				React.createElement('thead', { key: 'th' }, [
 					React.createElement('tr', { key: 'h' }, [
 						React.createElement('th', { key: 'p', className: 'rdtPrev', onClick: this.props.subtractTime( 1, 'months' )}, React.createElement('span', {}, '‹' )),
-						React.createElement('th', { key: 's', className: 'rdtSwitch', onClick: this.props.showView( 'months' ), colSpan: 5, 'data-value': this.props.viewDate.month() }, locale.months( date ) + ' ' + date.year() ),
+						React.createElement('th', { key: 's', className: 'rdtSwitch', onClick: this.props.showView( 'months' ), colSpan: 5, 'data-value': date.month() }, renderDaysLabel(date) ),
 						React.createElement('th', { key: 'n', className: 'rdtNext', onClick: this.props.addTime( 1, 'months' )}, React.createElement('span', {}, '›' ))
 					]),
 					React.createElement('tr', { key: 'd'}, this.getDaysOfWeek( locale ).map( function( day, index ) { return React.createElement('th', { key: day + index, className: 'dow'}, day ); }) )
@@ -2769,6 +2866,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			return React.createElement('td',  props, currentDate.date() );
 		},
 
+		renderDaysLabel: function (date) {
+			var locale = date.localeData();
+			return locale.months(date) + ' ' + date.year();
+		},
+
 		renderFooter: function() {
 			if ( !this.props.timeFormat )
 				return '';
@@ -2795,7 +2897,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2806,9 +2908,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(12);
 
-	var _reactDom = __webpack_require__(19);
+	var _reactDom = __webpack_require__(20);
 
-	var _generateOutsideCheck = __webpack_require__(20);
+	var _generateOutsideCheck = __webpack_require__(21);
 
 	var _generateOutsideCheck2 = _interopRequireDefault(_generateOutsideCheck);
 
@@ -3054,13 +3156,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_19__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -3137,14 +3239,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(12),
 		createClass = __webpack_require__(11),
-		onClickOutside = __webpack_require__(18).default
+		onClickOutside = __webpack_require__(19).default
 		;
 
 	var DateTimePickerMonths = onClickOutside( createClass({
@@ -3250,14 +3352,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(12),
 		createClass = __webpack_require__(11),
-		onClickOutside = __webpack_require__(18).default
+		onClickOutside = __webpack_require__(19).default
 		;
 
 	var DateTimePickerYears = onClickOutside( createClass({
@@ -3361,7 +3463,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3369,7 +3471,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(12),
 		createClass = __webpack_require__(11),
 		assign = __webpack_require__(1),
-		onClickOutside = __webpack_require__(18).default
+		onClickOutside = __webpack_require__(19).default
 		;
 
 	var DateTimePickerTime = onClickOutside( createClass({
